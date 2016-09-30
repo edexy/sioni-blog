@@ -1,0 +1,43 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+<div class="container">
+{% if form.errors %}
+  <div class="col-sm-6 col-sm-offset-3">
+    <p ><h4 class="alert alert-danger">Your username and password didn't match. Please try again.</h4></p><br />
+  </div>  
+{% endif %}
+
+
+<div class="col-sm-6 col-sm-offset-3">
+<div class="panel panel-primary">
+  <div class="panel-heading">Log-In</div>
+  <div class="panel-body">
+
+<div class="container col-sm-11">
+<form class="form-horizontal" role="form" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+{% csrf_token %}
+
+    <div class="form-group">
+       <label for="id_username" class="control-label">Username:</label>
+       <input class="form-control" id="id_username" name="username" type="text" />
+    </div>
+
+    <div class="form-group">
+       <label for="id_password" class="control-label">Password:</label>
+       <input class="form-control" id="id_password" name="password" type="password" />
+    </div>
+
+  <div class="form-group">
+     <input class="login btn btn-primary" type="submit" value="login" />
+  </div>   
+   <input type="hidden" name="next" value="{{ next }}" />
+ </form>
+ </div>
+
+ </div>
+ </div>
+ </div>
+ </div>
+{% endblock %}

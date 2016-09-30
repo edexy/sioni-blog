@@ -1,0 +1,34 @@
+{% extends 'blog/base.html'%}
+			 
+   {% block content %}
+       {% for post in posts %}
+		    <div class = "post">
+			    <div class = "date">
+			        <p>Published: {{post.published_date}}</p>
+				</div>
+			     
+			     <h1><a href = "{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+			      <p>{{ post.text|safe|linebreaks|truncatewords:120 }}</p>
+				  <p><a href = "{% url 'post_detail' pk=post.pk %}">Read more</a></p>
+					 
+				  <a href="{% url 'blog.views.post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
+			       </div>
+	   {% endfor %}
+
+        <div class="pagination">
+        	<span class="step-links">
+        		{% if posts.has_previous %}
+        		    <a href="?page={{ posts.previous_page_number }}">&laquo;</a>
+        		{% endif %}
+        		
+        		<span class="current">
+        			Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        		</span> 
+
+        		{% if posts.has_next %} 
+        		    <a href="?page={{ posts.next_page_number }}">&raquo;</a>
+        		{% endif %}      
+        	</span>
+        </div>
+	{% endblock %}
+		  
